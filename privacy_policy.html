@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AI Study OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0618;
+      color: #e8e0f0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a0b35 0%, #0d0618 60%);
+      border-bottom: 1px solid #2d1b4e;
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .hero .logo-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #7c3aed, #a76eff);
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 40px rgba(167,110,255,0.35);
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .hero h1 span { color: #a76eff; }
+
+    .hero .subtitle {
+      margin-top: 10px;
+      color: #9d8bb8;
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      background: rgba(167,110,255,0.15);
+      border: 1px solid rgba(167,110,255,0.4);
+      color: #c4a0ff;
+      padding: 6px 18px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .toc {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #2d1b4e;
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin: 40px 0 48px;
+    }
+
+    .toc h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #a76eff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+    }
+
+    .toc li {
+      margin-bottom: 6px;
+    }
+
+    .toc a {
+      color: #c4a0ff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .toc a:hover { color: #a76eff; text-decoration: underline; }
+
+    section {
+      margin-bottom: 52px;
+      scroll-margin-top: 24px;
+    }
+
+    section h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #2d1b4e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    section h2 .num {
+      background: linear-gradient(135deg, #7c3aed, #a76eff);
+      color: #fff;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 14px; color: #c8bde0; }
+
+    ul, ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+
+    li { margin-bottom: 8px; color: #c8bde0; }
+
+    li strong { color: #e8e0f0; font-weight: 600; }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #2d1b4e;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #a76eff;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .card p { margin: 0; font-size: 14px; }
+
+    .highlight-box {
+      background: rgba(167,110,255,0.08);
+      border-left: 3px solid #a76eff;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p { margin: 0; font-size: 14px; color: #d4bbff; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    th {
+      background: rgba(124,58,237,0.3);
+      color: #d4bbff;
+      font-weight: 600;
+      padding: 12px 16px;
+      text-align: left;
+      border: 1px solid #3d2b6b;
+    }
+
+    td {
+      padding: 11px 16px;
+      border: 1px solid #2d1b4e;
+      color: #c8bde0;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: rgba(255,255,255,0.025); }
+
+    .contact-card {
+      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(167,110,255,0.08));
+      border: 1px solid rgba(167,110,255,0.35);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .contact-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p { color: #9d8bb8; font-size: 14px; margin-bottom: 6px; }
+
+    .contact-card a {
+      color: #a76eff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-card a:hover { text-decoration: underline; }
+
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid #2d1b4e;
+      color: #5a4a7a;
+      font-size: 13px;
+    }
+
+    footer a { color: #7c5abf; text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .toc, .contact-card { padding: 20px; }
+      section h2 { font-size: 19px; }
+      table { font-size: 13px; }
+      th, td { padding: 9px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="logo-icon">📚</div>
+  <h1>Privacy Policy<br/><span>AI Study OS</span></h1>
+  <p class="subtitle">Crown AI &nbsp;·&nbsp; Developer: VK King</p>
+  <span class="badge">Last Updated: July 2026</span>
+</div>
+
+<!-- Content -->
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#s1">Information We Collect</a></li>
+      <li><a href="#s2">How We Use Your Information</a></li>
+      <li><a href="#s3">Third-Party Services</a></li>
+      <li><a href="#s4">Data Storage &amp; Security</a></li>
+      <li><a href="#s5">Data Retention</a></li>
+      <li><a href="#s6">Your Rights</a></li>
+      <li><a href="#s7">Children's Privacy</a></li>
+      <li><a href="#s8">Changes to This Policy</a></li>
+      <li><a href="#s9">Contact Us</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <p>This Privacy Policy explains how <strong>Crown AI</strong> ("we", "us", "our") collects, uses, and protects your personal information when you use the <strong>AI Study OS</strong> mobile application. By using the app, you agree to the practices described in this policy.</p>
+  </div>
+
+  <!-- Section 1 -->
+  <section id="s1">
+    <h2><span class="num">1</span> Information We Collect</h2>
+    <p>We collect the following types of information to provide and improve AI Study OS:</p>
+
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Data Collected</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Account Info</strong></td>
+          <td>Google name, email address, profile picture</td>
+          <td>Authentication and personalisation</td>
+        </tr>
+        <tr>
+          <td><strong>Study Content</strong></td>
+          <td>Chat history, questions asked, AI responses</td>
+          <td>Provide AI tutoring service</td>
+        </tr>
+        <tr>
+          <td><strong>Notes &amp; Materials</strong></td>
+          <td>Saved notes, study plans, uploaded photos</td>
+          <td>Sync notes across sessions</td>
+        </tr>
+        <tr>
+          <td><strong>Progress Data</strong></td>
+          <td>Quiz results, scores, streaks, session history</td>
+          <td>Analytics and recommendations</td>
+        </tr>
+        <tr>
+          <td><strong>Device Info</strong></td>
+          <td>Device model, OS version, app version</td>
+          <td>Bug fixing and compatibility</td>
+        </tr>
+        <tr>
+          <td><strong>Usage Analytics</strong></td>
+          <td>Features used, session duration, subject frequency</td>
+          <td>Improve app features</td>
+        </tr>
+        <tr>
+          <td><strong>Subscription &amp; Billing</strong></td>
+          <td>Plan type, billing cycle, purchase history</td>
+          <td>Manage subscriptions via Google Play</td>
+        </tr>
+        <tr>
+          <td><strong>Notifications</strong></td>
+          <td>Firebase Cloud Messaging token</td>
+          <td>Send push notifications</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We do <strong>not</strong> collect passwords, financial card details, or location data.</p>
+  </section>
+
+  <!-- Section 2 -->
+  <section id="s2">
+    <h2><span class="num">2</span> How We Use Your Information</h2>
+    <p>Your data is used exclusively to deliver and improve the AI Study OS experience:</p>
+    <ul>
+      <li><strong>Provide AI responses</strong> — Your questions are sent to GroqCloud AI to generate answers.</li>
+      <li><strong>Personalise your experience</strong> — Recommendations, subject tracking, and progress analytics.</li>
+      <li><strong>Sync across sessions</strong> — Your notes, plans, and history are stored so you can continue where you left off.</li>
+      <li><strong>Manage your subscription</strong> — Track plan status, billing cycle, and unlock features accordingly.</li>
+      <li><strong>Send notifications</strong> — Reminders, streak alerts, and important app updates.</li>
+      <li><strong>Debug and improve</strong> — Crash reports and usage patterns help us fix bugs and build better features.</li>
+    </ul>
+    <div class="highlight-box">
+      <p>🔒 <strong>We never sell your personal data to third parties.</strong> Your information is used only to operate AI Study OS.</p>
+    </div>
+  </section>
+
+  <!-- Section 3 -->
+  <section id="s3">
+    <h2><span class="num">3</span> Third-Party Services</h2>
+    <p>AI Study OS integrates with the following third-party services, each governed by their own privacy policies:</p>
+
+    <div class="card">
+      <div class="card-title">🔐 Google Sign-In (Alphabet Inc.)</div>
+      <p>Used for authentication. Google receives your login request; we receive your name, email, and profile picture. <a href="https://policies.google.com/privacy" style="color:#a76eff">Google Privacy Policy →</a></p>
+    </div>
+    <div class="card">
+      <div class="card-title">🤖 GroqCloud AI (Groq, Inc.)</div>
+      <p>Your questions and conversation context are sent to Groq's servers to generate AI responses. Groq processes this data per their privacy policy. We do not send personally identifiable information in AI prompts.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">🗄️ Railway PostgreSQL (Railway Corp.)</div>
+      <p>Your account data, chat history, notes, and study progress are stored in a PostgreSQL database hosted on Railway's secure infrastructure.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">⚡ Redis (Railway-hosted)</div>
+      <p>Used for session caching and temporary rate-limiting data. No personal data is permanently stored in Redis.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">💳 Google Play Billing (Alphabet Inc.)</div>
+      <p>All subscription payments are processed by Google Play. We receive only your subscription status (plan type, billing cycle) — we never see your payment card details. <a href="https://payments.google.com/payments/apis-secure/get_legal_document?ldo=0&ldt=privacynotice" style="color:#a76eff">Google Payments Privacy →</a></p>
+    </div>
+    <div class="card">
+      <div class="card-title">🔔 Firebase Cloud Messaging (Alphabet Inc.)</div>
+      <p>Used to deliver push notifications to your device. Firebase stores your device token for notification routing. <a href="https://firebase.google.com/support/privacy" style="color:#a76eff">Firebase Privacy Policy →</a></p>
+    </div>
+  </section>
+
+  <!-- Section 4 -->
+  <section id="s4">
+    <h2><span class="num">4</span> Data Storage &amp; Security</h2>
+    <p>We take reasonable technical and organisational measures to protect your data:</p>
+    <ul>
+      <li>All data is transmitted over <strong>HTTPS/TLS encrypted connections</strong>.</li>
+      <li>Passwords are never stored — authentication is handled by Google Sign-In.</li>
+      <li>Database access is restricted to authorised services only.</li>
+      <li>API keys and credentials are stored securely in environment variables, never in the app code.</li>
+      <li>Your data is stored on servers located in secure cloud infrastructure (Railway, USA).</li>
+    </ul>
+    <p>While we strive to protect your information, no method of transmission over the internet is 100% secure. We encourage you to use a strong Google account password and enable two-factor authentication.</p>
+  </section>
+
+  <!-- Section 5 -->
+  <section id="s5">
+    <h2><span class="num">5</span> Data Retention</h2>
+    <p>We retain your personal data for as long as your account is active:</p>
+    <ul>
+      <li><strong>Account data</strong> (name, email) — Retained until account deletion.</li>
+      <li><strong>Chat history &amp; notes</strong> — Retained until deleted by you or on account deletion.</li>
+      <li><strong>Analytics data</strong> — Aggregated usage statistics may be retained in anonymised form after account deletion.</li>
+      <li><strong>Payment records</strong> — Subscription history is retained as required by applicable law and Google Play's policies.</li>
+    </ul>
+    <p>When you delete your account, all personally identifiable data is permanently removed from our servers within 30 days.</p>
+  </section>
+
+  <!-- Section 6 -->
+  <section id="s6">
+    <h2><span class="num">6</span> Your Rights</h2>
+    <p>You have the following rights regarding your personal data:</p>
+    <ul>
+      <li><strong>Access</strong> — Request a copy of the personal data we hold about you.</li>
+      <li><strong>Correction</strong> — Request correction of inaccurate data.</li>
+      <li><strong>Deletion</strong> — Request deletion of your account and all associated data ("Right to be Forgotten").</li>
+      <li><strong>Data Portability</strong> — Request an export of your data in a readable format.</li>
+      <li><strong>Opt-out of notifications</strong> — Disable push notifications at any time from your device settings or within the app.</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:lathiyavasu2006@gmail.com" style="color:#a76eff">lathiyavasu2006@gmail.com</a>. We will respond within 30 days.</p>
+  </section>
+
+  <!-- Section 7 -->
+  <section id="s7">
+    <h2><span class="num">7</span> Children's Privacy</h2>
+    <p>AI Study OS is designed for educational use by students of all ages. However, our service is not specifically directed at children under the age of 13.</p>
+    <ul>
+      <li>Children under 13 should only use AI Study OS with <strong>verifiable parental or guardian consent</strong>.</li>
+      <li>If you are a parent or guardian and believe your child has provided us with personal information without your consent, please contact us immediately.</li>
+      <li>We do not knowingly collect personal data from children under 13 without parental consent. If we become aware of such data, we will delete it promptly.</li>
+    </ul>
+  </section>
+
+  <!-- Section 8 -->
+  <section id="s8">
+    <h2><span class="num">8</span> Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices or applicable law. When we make significant changes, we will:</p>
+    <ul>
+      <li>Update the "Last Updated" date at the top of this page.</li>
+      <li>Notify you via a push notification or in-app banner.</li>
+    </ul>
+    <p>We encourage you to review this Privacy Policy periodically. Continued use of AI Study OS after changes constitutes your acceptance of the updated policy.</p>
+  </section>
+
+  <!-- Section 9 -->
+  <section id="s9">
+    <h2><span class="num">9</span> Contact Us</h2>
+    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p>
+
+    <div class="contact-card">
+      <h3>Crown AI — AI Study OS</h3>
+      <p>Developer: VK King</p>
+      <p>📧 <a href="mailto:lathiyavasu2006@gmail.com">lathiyavasu2006@gmail.com</a></p>
+      <p style="margin-top:12px; font-size:13px; color:#5a4a7a;">We aim to respond to all privacy-related enquiries within 30 days.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 Crown AI. All rights reserved. &nbsp;·&nbsp; <a href="mailto:lathiyavasu2006@gmail.com">Contact</a></p>
+  <p style="margin-top:6px;">AI Study OS is built for Indian students with ❤️ in Surat, Gujarat.</p>
+</footer>
+
+</body>
+</html>
