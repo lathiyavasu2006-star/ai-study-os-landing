@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account — AI Study OS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0618;
+      --bg2: #130a24;
+      --card: #1a0b35;
+      --accent: #a76eff;
+      --accent2: #7c3aed;
+      --gold: #f59e0b;
+      --red: #ef4444;
+      --green: #10b981;
+      --text: #f0eaf8;
+      --muted: #9d8bb8;
+      --border: rgba(167,110,255,0.2);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a0b35, #0d0618);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+    }
+    .header-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 24px 40px;
+      background: radial-gradient(ellipse at top, rgba(167,110,255,0.08), transparent 60%);
+    }
+    .warning-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #ef4444;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(24px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* Container */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* Warning Card */
+    .warning-card {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .warning-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ef4444;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .warning-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .warning-card li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .warning-card li::before {
+      content: "✗";
+      color: #ef4444;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title span {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .step-content {
+      flex: 1;
+    }
+    .step-content strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .step-content span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Data list */
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .data-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .data-item::before {
+      content: "🗑";
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Email option */
+    .email-card {
+      background: linear-gradient(135deg, rgba(167,110,255,0.08), rgba(124,58,237,0.05));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+    .email-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .email-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .email-btn:hover { opacity: 0.85; }
+    .email-template {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .email-template strong {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .dot-red { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); }
+    .dot-orange { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); }
+    .dot-green { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); }
+    .timeline-content strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2px;
+      margin-top: 4px;
+    }
+    .timeline-content span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .footer-brand {
+      font-size: 20px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+    .footer p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .footer p a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .data-grid { grid-template-columns: 1fr; }
+      .hero { padding: 40px 16px 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <a href="#" class="header-logo">
+    <div class="logo-icon">🎓</div>
+    <span class="logo-text">AI Study OS</span>
+  </a>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="warning-badge">⚠️ PERMANENT ACTION</div>
+  <h1>Delete Your<br><span>AI Study OS Account</span></h1>
+  <p>We're sorry to see you go. Deleting your account is permanent and cannot be undone. Please read carefully before proceeding.</p>
+</div>
+
+<div class="container">
+
+  <!-- Warning -->
+  <div class="warning-card">
+    <h3>⚠️ What will be permanently deleted</h3>
+    <ul>
+      <li>Your Google account connection and profile</li>
+      <li>All chat history and AI conversations</li>
+      <li>All saved notes and study materials</li>
+      <li>Quiz results and performance history</li>
+      <li>Study plans, streaks and analytics data</li>
+      <li>Leaderboard rank and referral credits</li>
+      <li>Active subscription (no refund for unused period)</li>
+    </ul>
+  </div>
+
+  <!-- Steps -->
+  <div class="section">
+    <div class="section-title">
+      <span>📱</span>
+      How to Delete Your Account (In-App)
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Open AI Study OS</strong>
+          <span>Launch the app on your Android device</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Go to Profile</strong>
+          <span>Tap the Profile icon in the bottom navigation bar</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Open Settings</strong>
+          <span>Tap the Settings icon in the top right corner</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Find "Delete Account"</strong>
+          <span>Scroll down to the bottom of Settings page</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Tap "Delete Account"</strong>
+          <span>A confirmation dialog will appear</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <strong>Confirm Deletion</strong>
+          <span>Type "DELETE" and tap confirm — account will be deleted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data deleted -->
+  <div class="section">
+    <div class="section-title">
+      <span>🗑️</span>
+      Data That Will Be Deleted
+    </div>
+    <div class="data-grid">
+      <div class="data-item">Google account connection</div>
+      <div class="data-item">All chat history</div>
+      <div class="data-item">Saved notes</div>
+      <div class="data-item">Quiz results</div>
+      <div class="data-item">Study plans</div>
+      <div class="data-item">Study streaks</div>
+      <div class="data-item">Analytics data</div>
+      <div class="data-item">Leaderboard data</div>
+      <div class="data-item">Referral history</div>
+      <div class="data-item">Subscription info</div>
+      <div class="data-item">Notification tokens</div>
+      <div class="data-item">All personal data</div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <div class="section-title">
+      <span>⏱️</span>
+      Deletion Timeline
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot dot-red">🔴</div>
+        <div class="timeline-content">
+          <strong>Immediately</strong>
+          <span>Account access revoked, app logged out</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-orange">🟡</div>
+        <div class="timeline-content">
+          <strong>Within 30 days</strong>
+          <span>All personal data deleted from active servers</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dot-green">🟢</div>
+        <div class="timeline-content">
+          <strong>Within 90 days</strong>
+          <span>All data purged from backups and logs completely</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email option -->
+  <div class="section">
+    <div class="email-card">
+      <h3>📧 Request Deletion via Email</h3>
+      <p>If you're unable to access the app or prefer to request deletion via email, contact us directly. We'll process your request within 7 business days.</p>
+      <a href="mailto:lathiyavasu2006@gmail.com?subject=Delete Account Request — AI Study OS&body=Hello,%0A%0AI would like to request the deletion of my AI Study OS account.%0A%0ARegistered Email: %0AUser ID (if known): %0AReason (optional): %0A%0APlease delete my account and all associated data.%0A%0AThank you." class="email-btn">
+        📧 Send Deletion Request
+      </a>
+      <div class="email-template">
+        <strong>Email Template</strong>
+        To: lathiyavasu2006@gmail.com<br>
+        Subject: Delete Account Request — AI Study OS<br><br>
+        Include: Your registered email address<br>
+        We'll confirm deletion within 7 business days.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">Crown AI</div>
+  <p>Developed by <strong>VK King</strong> · King's Crown</p>
+  <p style="margin-top:8px;font-style:italic;color:#6d5a8a;">
+    "Every King needs a Crown. Every Future needs AI."
+  </p>
+  <p style="margin-top:12px;">
+    <a href="privacy_policy.html">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:lathiyavasu2006@gmail.com">Contact Us</a>
+  </p>
+  <p style="margin-top:8px;opacity:.4;font-size:11px;">© 2026 Crown AI · AI Study OS · All rights reserved</p>
+</footer>
+
+</body>
+</html>
