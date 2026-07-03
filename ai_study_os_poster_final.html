@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Study OS — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:      #0d0618;
+  --mid:     #1a0b2e;
+  --surface: #2d1b4e;
+  --accent:  #a76eff;
+  --accent2: #7c3aed;
+  --accent3: #c084fc;
+  --gold:    #f59e0b;
+  --white:   #f0eaf8;
+  --muted:   #9d8bb8;
+}
+
+html, body {
+  width: 100%; min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── BG CANVAS ── */
+#bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* ── POSTER WRAP ── */
+.poster {
+  position: relative; z-index: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 48px 28px 40px;
+  text-align: center;
+}
+
+/* ── COMING SOON PILL ── */
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 24px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: #fff;
+  box-shadow: 0 0 32px rgba(167,110,255,0.5);
+  margin-bottom: 32px;
+  animation: pulse-pill 2.5s ease-in-out infinite;
+}
+@keyframes pulse-pill {
+  0%,100% { box-shadow: 0 0 20px rgba(167,110,255,0.4); }
+  50%      { box-shadow: 0 0 50px rgba(167,110,255,0.8); }
+}
+.pill-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #fff;
+  animation: blink 1.2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── ORBIT ICON ── */
+.orbit-wrap {
+  width: 220px; height: 220px;
+  position: relative; margin: 0 auto 32px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-12px); }
+}
+.orbit-svg { width: 100%; height: 100%; }
+.orbit-ring1 { animation: spin 14s linear infinite; transform-origin: center; }
+.orbit-ring2 { animation: spin 20s linear infinite reverse; transform-origin: center; }
+.orbit-ring3 { animation: spin 10s linear infinite; transform-origin: center; }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.orbit-core-wrap {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.orbit-core {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent2), var(--accent3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  box-shadow: 0 0 0 12px rgba(167,110,255,0.1),
+              0 0 0 24px rgba(167,110,255,0.05),
+              0 0 60px rgba(167,110,255,0.4);
+  animation: core-pulse 3s ease-in-out infinite;
+}
+@keyframes core-pulse {
+  0%,100% { box-shadow: 0 0 0 12px rgba(167,110,255,0.1), 0 0 0 24px rgba(167,110,255,0.05), 0 0 60px rgba(167,110,255,0.4); }
+  50%      { box-shadow: 0 0 0 16px rgba(167,110,255,0.15), 0 0 0 32px rgba(167,110,255,0.07), 0 0 80px rgba(167,110,255,0.6); }
+}
+
+/* ── TITLE ── */
+.app-title {
+  font-size: clamp(42px, 12vw, 72px);
+  font-weight: 900; line-height: 1.0;
+  letter-spacing: -2px; margin-bottom: 6px;
+}
+.app-title .t1 { display: block; color: var(--white); }
+.app-title .t2 {
+  display: block;
+  background: linear-gradient(135deg, var(--accent3) 0%, var(--accent) 50%, #7c3aed 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite alternate;
+  background-size: 200%;
+}
+@keyframes gradient-shift {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
+.app-sub {
+  font-size: 15px; font-weight: 300; color: var(--muted);
+  margin-bottom: 28px; line-height: 1.6; max-width: 380px;
+}
+
+/* ── FEATURE CHIPS ── */
+.chips {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; margin-bottom: 36px;
+}
+.chip {
+  padding: 8px 18px; border-radius: 999px; font-size: 12px; font-weight: 500;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; gap: 6px;
+  animation: chip-in 0.5s ease backwards;
+  transition: border-color 0.2s, background 0.2s;
+}
+.chip:hover { border-color: var(--accent); background: rgba(167,110,255,0.1); }
+
+/* ── STATS ROW ── */
+.stats {
+  display: flex; gap: 0; width: 100%; max-width: 400px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px; overflow: hidden;
+  margin-bottom: 36px;
+  backdrop-filter: blur(20px);
+}
+.stat {
+  flex: 1; padding: 18px 8px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-size: 22px; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent3), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: block;
+}
+.stat-l { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.5px; }
+
+/* ── BUTTONS ── */
+.btn-row { display: flex; gap: 12px; width: 100%; max-width: 400px; margin-bottom: 24px; }
+.btn-notify {
+  flex: 1; padding: 16px; border-radius: 14px; border: none; cursor: pointer;
+  font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 600;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(124,58,237,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-notify:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(124,58,237,0.6); }
+.btn-share {
+  flex: 1; padding: 16px; border-radius: 14px; cursor: pointer;
+  font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--white);
+  backdrop-filter: blur(10px);
+  transition: background 0.2s, transform 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-share:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+/* ── BELL RING ── */
+.bell { display: inline-block; }
+@keyframes bell-ring {
+  0%   { transform: rotate(0); }
+  15%  { transform: rotate(22deg); }
+  30%  { transform: rotate(-18deg); }
+  45%  { transform: rotate(14deg); }
+  60%  { transform: rotate(-9deg); }
+  75%  { transform: rotate(5deg); }
+  100% { transform: rotate(0); }
+}
+.bell.ringing { animation: bell-ring 0.7s ease; }
+
+/* ── DEVELOPER TAG ── */
+.dev-tag {
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 1px;
+}
+.dev-tag span { color: var(--accent3); font-weight: 600; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(10px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+  border: 1px solid rgba(167,110,255,0.25);
+  border-radius: 28px; padding: 44px 36px;
+  max-width: 420px; width: 100%;
+  box-shadow: 0 40px 100px rgba(124,58,237,0.45);
+  text-align: center; position: relative;
+  animation: modal-in 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modal-in {
+  from { opacity:0; transform: scale(0.85) translateY(20px); }
+  to   { opacity:1; transform: scale(1) translateY(0); }
+}
+.modal-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; color: var(--muted);
+  font-size: 24px; cursor: pointer; line-height: 1;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--white); }
+.modal-bell { font-size: 52px; margin-bottom: 14px; display: block; }
+.modal-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+.modal-input {
+  width: 100%; padding: 14px 18px; border-radius: 12px; margin-bottom: 12px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white); font-family: 'Poppins',sans-serif; font-size: 14px;
+  outline: none; transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--accent); }
+.modal-input::placeholder { color: var(--muted); }
+.modal-submit {
+  width: 100%; padding: 15px; border-radius: 12px; border: none; cursor: pointer;
+  font-family: 'Poppins',sans-serif; font-size: 15px; font-weight: 600;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+  transition: opacity 0.2s, transform 0.2s; margin-top: 4px;
+}
+.modal-submit:hover { transform: translateY(-1px); }
+.modal-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+.modal-error { color: #f87171; font-size: 12px; margin-top: 10px; display: none; }
+.modal-success { display: none; }
+.modal-success-icon { font-size: 56px; margin-bottom: 12px; }
+.modal-success-title { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+.modal-success-sub { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── SHARE TOAST ── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: #1a0b2e; border: 1px solid var(--accent);
+  border-radius: 12px; padding: 14px 28px;
+  font-size: 14px; font-weight: 500; color: var(--white);
+  box-shadow: 0 8px 32px rgba(167,110,255,0.3);
+  z-index: 9999; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <span class="modal-bell" id="modal-bell">🔔</span>
+    <h3 class="modal-title">Launch pe sabse pehle jaano!</h3>
+    <p class="modal-sub">Koi spam nahi — sirf ek email jab AI Study OS launch ho.</p>
+
+    <div id="modal-form">
+      <input class="modal-input" id="m-name" type="text" placeholder="Tumhara naam" />
+      <input class="modal-input" id="m-email" type="email" placeholder="Email address" />
+      <button class="modal-submit" id="m-btn" onclick="submitNotify()">🚀 Notify Karo Mujhe!</button>
+      <p class="modal-error" id="m-err"></p>
+    </div>
+
+    <div class="modal-success" id="modal-success">
+      <div class="modal-success-icon">🎉</div>
+      <div class="modal-success-title">Ho gaya!</div>
+      <p class="modal-success-sub">Launch pe tumhe sabse pehle batayenge.<br>Tab tak padhai jaari rakho! 📚</p>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE TOAST -->
+<div class="toast" id="toast">🔗 Link copied! Share karo dosto ke saath</div>
+
+<!-- POSTER CONTENT -->
+<div class="poster">
+
+  <!-- pill -->
+  <div class="pill">
+    <div class="pill-dot"></div>
+    Coming Soon
+  </div>
+
+  <!-- orbit -->
+  <div class="orbit-wrap">
+    <svg class="orbit-svg" viewBox="0 0 220 220" fill="none">
+      <!-- ring 1 -->
+      <g class="orbit-ring1">
+        <ellipse cx="110" cy="110" rx="100" ry="38"
+          stroke="#a76eff" stroke-width="2" stroke-dasharray="8 5" opacity="0.85"/>
+        <circle cx="110" cy="72" r="7" fill="#fff" opacity="0.95"/>
+      </g>
+      <!-- ring 2 -->
+      <g class="orbit-ring2">
+        <ellipse cx="110" cy="110" rx="100" ry="38"
+          stroke="#c084fc" stroke-width="1.5" stroke-dasharray="5 7" opacity="0.6"
+          transform="rotate(65 110 110)"/>
+        <circle cx="196" cy="126" r="5" fill="#c084fc" opacity="0.9"/>
+      </g>
+      <!-- ring 3 -->
+      <g class="orbit-ring3">
+        <ellipse cx="110" cy="110" rx="100" ry="38"
+          stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.7"
+          transform="rotate(130 110 110)"/>
+        <circle cx="40" cy="140" r="4" fill="#a76eff" opacity="0.9"/>
+      </g>
+    </svg>
+    <div class="orbit-core-wrap">
+      <div class="orbit-core">🧠</div>
+    </div>
+  </div>
+
+  <!-- title -->
+  <h1 class="app-title">
+    <span class="t1">AI STUDY</span>
+    <span class="t2">OS</span>
+  </h1>
+  <p class="app-sub">India ka pehla AI-powered study companion — NCERT grounded, 14 languages, personalized for every student.</p>
+
+  <!-- feature chips -->
+  <div class="chips">
+    <div class="chip" style="animation-delay:0.1s">🧠 AI Chat</div>
+    <div class="chip" style="animation-delay:0.2s">🗣️ Voice</div>
+    <div class="chip" style="animation-delay:0.3s">📸 Photo OCR</div>
+    <div class="chip" style="animation-delay:0.4s">🎯 Smart Quiz</div>
+    <div class="chip" style="animation-delay:0.5s">📅 Study Planner</div>
+    <div class="chip" style="animation-delay:0.6s">🔥 Streaks</div>
+    <div class="chip" style="animation-delay:0.7s">⏱️ Focus Mode</div>
+    <div class="chip" style="animation-delay:0.8s">📊 Analytics</div>
+  </div>
+
+  <!-- stats -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-n">69K+</span>
+      <div class="stat-l">NCERT Chunks</div>
+    </div>
+    <div class="stat">
+      <span class="stat-n">14</span>
+      <div class="stat-l">Languages</div>
+    </div>
+    <div class="stat">
+      <span class="stat-n">21</span>
+      <div class="stat-l">Subjects</div>
+    </div>
+    <div class="stat">
+      <span class="stat-n">₹0</span>
+      <div class="stat-l">To Start</div>
+    </div>
+  </div>
+
+  <!-- welcome offer -->
+  <div style="width:100%;max-width:400px;margin-bottom:24px;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(124,58,237,.1));border:1px solid rgba(245,158,11,.3);border-radius:20px;padding:20px 18px;text-align:center;">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#000;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:4px 14px;border-radius:999px;margin-bottom:12px;">
+      🎁 LAUNCH OFFER
+    </div>
+    <div style="font-size:15px;font-weight:800;color:#f0eaf8;margin-bottom:6px;line-height:1.3;">
+      24 Hours <span style="background:linear-gradient(135deg,#f59e0b,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Advanced FREE</span>
+    </div>
+    <div style="font-size:11px;color:#9d8bb8;line-height:1.6;margin-bottom:14px;">
+      Install karo → Advanced plan milega FREE · Koi credit card nahi
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(167,110,255,.2);border-radius:12px;padding:10px 8px;">
+        <div style="font-size:16px;margin-bottom:4px;">🚀</div>
+        <div style="font-size:10px;font-weight:600;color:#c084fc;">Lite Buy</div>
+        <div style="font-size:10px;color:#9d8bb8;">Pro FREE 7 days</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(167,110,255,.2);border-radius:12px;padding:10px 8px;">
+        <div style="font-size:16px;margin-bottom:4px;">👑</div>
+        <div style="font-size:10px;font-weight:600;color:#c084fc;">Pro Buy</div>
+        <div style="font-size:10px;color:#9d8bb8;">Advanced FREE 7 days</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- buttons -->
+  <div class="btn-row">
+    <button class="btn-notify" id="notify-btn" onclick="openModal()">
+      <span class="bell" id="poster-bell">🔔</span> Notify Me
+    </button>
+    <button class="btn-share" onclick="shareApp()">
+      <span>📤</span> Share
+    </button>
+  </div>
+
+  <!-- dev tag -->
+  <!-- company tag -->
+  <div style="margin-bottom:6px;text-align:center;">
+    <span style="font-size:16px;font-weight:900;letter-spacing:.5px;
+      background:linear-gradient(135deg,#c084fc,#f59e0b);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+      Crown AI
+    </span>
+  </div>
+  <p class="dev-tag">Developed by <span>VK King</span> · King's Crown</p>
+  <p style="font-size:11px;font-style:italic;color:#9d8bb8;margin-top:8px;line-height:1.6;text-align:center;max-width:320px;">
+    "Every King needs a Crown.<br>Every Future needs AI."
+  </p>
+
+</div>
+
+<script>
+// ── EMAILJS ──
+emailjs.init('8agt4RZOQsEsgEazs');
+
+// ── PARTICLE BG ──
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize(); window.addEventListener('resize', resize);
+
+class Pt {
+  reset() {
+    this.x = Math.random() * W; this.y = Math.random() * H;
+    this.r = Math.random() * 1.5 + 0.3;
+    this.vx = (Math.random()-0.5)*0.18; this.vy = (Math.random()-0.5)*0.18;
+    this.a = Math.random()*0.5+0.1;
+    this.c = Math.random()>0.55 ? '#a76eff' : '#fff';
+  }
+  constructor() { this.reset(); }
+  step() {
+    this.x+=this.vx; this.y+=this.vy;
+    if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
+  }
+  draw() {
+    ctx.save(); ctx.globalAlpha=this.a; ctx.fillStyle=this.c;
+    ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.restore();
+  }
+}
+for(let i=0;i<160;i++) pts.push(new Pt());
+
+function drawBg() {
+  ctx.clearRect(0,0,W,H);
+  const g1=ctx.createRadialGradient(W*.15,H*.1,0,W*.15,H*.1,W*.65);
+  g1.addColorStop(0,'rgba(45,27,78,0.55)'); g1.addColorStop(1,'rgba(13,6,24,0)');
+  ctx.fillStyle=g1; ctx.fillRect(0,0,W,H);
+  const g2=ctx.createRadialGradient(W*.85,H*.85,0,W*.85,H*.85,W*.55);
+  g2.addColorStop(0,'rgba(124,58,237,0.35)'); g2.addColorStop(1,'rgba(13,6,24,0)');
+  ctx.fillStyle=g2; ctx.fillRect(0,0,W,H);
+  pts.forEach(p=>{p.step();p.draw();});
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+// ── BELL RING ──
+function ringBell(id) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.remove('ringing');
+  void el.offsetWidth;
+  el.classList.add('ringing');
+  el.addEventListener('animationend', ()=>el.classList.remove('ringing'), {once:true});
+}
+
+// ── MODAL ──
+function openModal() {
+  ringBell('poster-bell');
+  setTimeout(()=>ringBell('modal-bell'), 100);
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('modal-form').style.display='block';
+  document.getElementById('modal-success').style.display='none';
+  document.getElementById('m-err').style.display='none';
+  const btn=document.getElementById('m-btn');
+  btn.textContent='🚀 Notify Karo Mujhe!'; btn.disabled=false; btn.style.opacity='1';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', e=>{
+  if(e.target===document.getElementById('modal')) closeModal();
+});
+
+// ── SUBMIT ──
+async function submitNotify() {
+  const name = document.getElementById('m-name').value.trim();
+  const email = document.getElementById('m-email').value.trim();
+  const err = document.getElementById('m-err');
+  const btn = document.getElementById('m-btn');
+  if(!name){ showErr('Naam likhna zaroori hai!'); return; }
+  if(!email||!email.includes('@')){ showErr('Sahi email address likho.'); return; }
+  btn.textContent='Bhej rahe hain...'; btn.disabled=true; btn.style.opacity='0.65';
+  try {
+    await emailjs.send('service_8syddtl','template_131wyft',{from_name:name,from_email:email});
+    document.getElementById('modal-form').style.display='none';
+    document.getElementById('modal-success').style.display='block';
+    ringBell('modal-bell');
+  } catch(e) {
+    showErr('Kuch problem hui. Dobara try karo.');
+    btn.textContent='🚀 Notify Karo Mujhe!'; btn.disabled=false; btn.style.opacity='1';
+  }
+}
+function showErr(msg) {
+  const el=document.getElementById('m-err'); el.textContent=msg; el.style.display='block';
+}
+
+// ── SHARE ──
+function shareApp() {
+  const url = window.location.href;
+  const text = 'AI Study OS — India ka smartest AI study companion aa raha hai! 🚀\nJEE · NEET · CBSE · UPSC sab ke liye, 14 languages mein.\n\n' + url;
+  if(navigator.share) {
+    navigator.share({ title:'AI Study OS — Coming Soon', text, url });
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      const t=document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 3000);
+    });
+  }
+}
+</script>
+</body>
+</html>
